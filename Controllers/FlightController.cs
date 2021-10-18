@@ -2,14 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using FlightManager.Models;
 
 namespace FlightManager.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Policy = "AdminOnly")]
     [ApiController]
     public class FlightController : ControllerBase
     {
@@ -21,6 +22,7 @@ namespace FlightManager.Controllers
         }
 
         // GET: api/Flight
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Flight>>> GetFlights()
         {
@@ -28,6 +30,7 @@ namespace FlightManager.Controllers
         }
 
         // GET: api/Flight/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Flight>> GetFlight(Guid id)
         {
@@ -77,6 +80,8 @@ namespace FlightManager.Controllers
         [HttpPost]
         public async Task<ActionResult<Flight>> PostFlight(Flight flight)
         {
+            flight.Id = new Guid();
+            if (flight.DepartureTime > flight.ArrivalTime) return BadRequest(new { Error = "departure cannot be before arrival" });
             _context.Flights.Add(flight);
             await _context.SaveChangesAsync();
 

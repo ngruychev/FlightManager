@@ -8,6 +8,7 @@ namespace FlightManager.Models
         public FlightManagerContext(DbContextOptions<FlightManagerContext> options) : base(options) { }
         public DbSet<Flight> Flights { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Passenger> Passengers { get; set; }
         public DbSet<User> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +26,8 @@ namespace FlightManager.Models
                 PhoneNumber = "123 456-7890", // lol
                 HashedPassword = BCrypt.Net.BCrypt.HashPassword("admin") // change that on 1st login
             });
+            modelBuilder.Entity<Flight>().HasMany(e => e.Reservations).WithOne(e => e.Flight).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Reservation>().HasMany(e => e.Passengers).WithOne(e => e.Reservation).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

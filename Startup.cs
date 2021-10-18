@@ -12,9 +12,12 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using FlightManager.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace FlightManager
 {
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -30,10 +33,25 @@ namespace FlightManager
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             var serverVersion = ServerVersion.AutoDetect(connectionString);
             services.AddControllers();
-            services.AddDbContext<FlightManagerContext>(opt => opt.UseMySql(connectionString, serverVersion));
+            services.AddDbContext<FlightManagerContext>(opt => opt.UseMySql(connectionString, serverVersion).UseLazyLoadingProxies());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FlightManager", Version = "v1" });
+            });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = string.Empty;
+                options.AccessDeniedPath = string.Empty;
+                options.Events.OnRedirectToLogin = options.Events.OnRedirectToAccessDenied = options.Events.OnRedirectToLogout = options.Events.OnRedirectToReturnUrl = context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return Task.CompletedTask;
+                };
+            });
+            // custom policies lol
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy => policy.RequireAssertion(context => context.User.IsInRole(UserRole.Admin.ToString())));
             });
         }
 
@@ -49,7 +67,12 @@ namespace FlightManager
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                MinimumSameSitePolicy = SameSiteMode.Strict
+            });
 
             app.UseEndpoints(endpoints =>
             {

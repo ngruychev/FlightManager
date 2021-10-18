@@ -11,12 +11,17 @@ namespace FlightManager.Models
     }
     public class User : BasePerson
     {
-        // keep roles in order of privilege
-        [RegularExpression(@"[a-zA-Z0-9_]{4,16}")]
+        [Required]
+        [RegularExpression(@"^[a-zA-Z0-9_]{4,16}$")]
         public string Username { get; set; }
         [JsonIgnore]
         public string HashedPassword { get; set; }
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+        [Required]
         public string Address { get; set; }
+        [Required]
         public UserRole Role { get; set; }
     }
 }

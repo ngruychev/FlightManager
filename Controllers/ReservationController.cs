@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FlightManager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FlightManager.Controllers
 {
@@ -43,6 +43,7 @@ namespace FlightManager.Controllers
 
         // PUT: api/Reservation/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Policy = "AdminOnly")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutReservation(Guid id, Reservation reservation)
         {
@@ -77,6 +78,22 @@ namespace FlightManager.Controllers
         [HttpPost]
         public async Task<ActionResult<Reservation>> PostReservation(Reservation reservation)
         {
+            reservation.Id = new Guid();
+            reservation.Confirmed = false;
+            foreach (var p in reservation.Passengers)
+            {
+                p.Id = new Guid();
+            }
+            if (!_context.Flights.Any(f => f.Id == reservation.FlightId)) return NotFound();
+            var flight = _context.Flights.Where(f => f.Id == reservation.FlightId).First();
+            var economySeatsRequested = reservation.Passengers
+                .Where(p => p.TicketType == TicketType.Economy)
+                .Count();
+            var businessSeatsRequested = reservation.Passengers
+                .Where(p => p.TicketType == TicketType.Business)
+                .Count();
+            if (flight.EconomySeatsLeft < economySeatsRequested || flight.BusinessSeatsLeft < businessSeatsRequested) return BadRequest(new { Error = "not enough places" });
+            // TODO: confirmation email
             _context.Reservations.Add(reservation);
             await _context.SaveChangesAsync();
 
@@ -84,6 +101,7 @@ namespace FlightManager.Controllers
         }
 
         // DELETE: api/Reservation/5
+        [Authorize(Policy = "AdminOnly")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteReservation(Guid id)
         {
