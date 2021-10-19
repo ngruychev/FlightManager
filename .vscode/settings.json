@@ -1,5 +1,8 @@
 {
     "indentRainbow.ignoreErrorLanguages": [
         "csharp"
-    ]
+    ],
+    "[javascript]": {
+        "editor.tabSize": 2
+    }
 }
