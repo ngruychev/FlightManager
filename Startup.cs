@@ -74,12 +74,13 @@ namespace FlightManager
                 MinimumSameSitePolicy = SameSiteMode.Strict
             });
 
+            app.UseFileServer();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToFile("index.html");
             });
 
-            app.UseFileServer();
 
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {

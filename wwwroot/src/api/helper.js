@@ -1,7 +1,7 @@
 export default {
   async get(endpoint) {
-    const res = await fetch(endpoint);
     try {
+      const res = await fetch(endpoint);
       return [res.status < 400, await res.json()];
     } catch {
       return [false];
