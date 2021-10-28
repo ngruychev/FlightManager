@@ -1,8 +1,8 @@
 {
-    "indentRainbow.ignoreErrorLanguages": [
-        "csharp"
-    ],
-    "[javascript]": {
-        "editor.tabSize": 2
-    }
+  "indentRainbow.ignoreErrorLanguages": [
+    "csharp"
+  ],
+  "[javascript]": {
+    "editor.tabSize": 2
+  }
 }

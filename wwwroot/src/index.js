@@ -1,6 +1,8 @@
-import { css, html, render } from "../vendor/js/bundle.js";
+import { allEffects, css, html, render } from "../vendor/js/bundle.js";
 import Nav from "./components/Nav.js";
 import Router from "./components/Router.js";
+import { flights } from "./stores/flights.js";
+import { user } from "./stores/user.js";
 
 css`
 &{}
@@ -25,5 +27,10 @@ function App() {
     <${Router}/>
   `;
 }
+
+// force-load stores
+flights.listen(() => {});
+user.listen(() => {});
+await allEffects();
 
 render(html`<${App}/>`, document.body);
