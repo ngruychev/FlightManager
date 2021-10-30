@@ -1,5 +1,5 @@
 import { css, html } from "../../vendor/js/bundle.js";
-import Center from "../components/Center.js";
+import Center from "../components/styled/Center.js";
 
 const style = css`
 & {

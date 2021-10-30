@@ -12,6 +12,7 @@ import Reservations from "../screens/Reservations.js";
 import Login from "../screens/Login.js";
 import Flight from "../screens/Flight.js";
 import StatusCode from "../screens/StatusCode.js";
+import Reservation from "../screens/Reservation.js";
 
 const style = css`
 width: 100%;
@@ -26,7 +27,7 @@ export default function Router() {
     forceRerender({});
   }, [router]);
   return html`
-    <div class=${style}>
+    <main class=${style}>
       ${
     (() => {
       switch (page?.route) {
@@ -41,6 +42,8 @@ export default function Router() {
           return html`<${Login}/>`;
         case "reservations":
           return html`<${Reservations}/>`;
+        case "reservation":
+          return html`<${Reservation} id=${page?.params?.id}/>`;
         case "404":
           return html`<${StatusCode} code="404" text="Not Found"/>`;
         default:
@@ -49,6 +52,6 @@ export default function Router() {
       }
     })()
   }
-    </div>
+    </main>
   `;
 }

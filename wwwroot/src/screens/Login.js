@@ -5,8 +5,8 @@ import {
   useState,
   useStore,
 } from "../../vendor/js/bundle.js";
-import Center from "../components/Center.js";
-import ErrorMessage from "../components/ErrorMessage.js";
+import Center from "../components/styled/Center.js";
+import ErrorMessage from "../components/styled/ErrorMessage.js";
 import { router } from "../stores/router.js";
 import { logIn, user } from "../stores/user.js";
 

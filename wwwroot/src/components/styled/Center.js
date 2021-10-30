@@ -1,4 +1,4 @@
-import { css, html } from "../../vendor/js/bundle.js";
+import { css, html } from "../../../vendor/js/bundle.js";
 
 const style = css`
 width: 100%;

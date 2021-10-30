@@ -5,6 +5,7 @@ export const router = createRouter({
   flights: "/flights",
   flight: "/flight/:id",
   reservations: "/reservations",
+  reservation: "/reservation/:id",
   login: "/login",
   "404": "/404",
 });

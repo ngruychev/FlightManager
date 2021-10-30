@@ -1,4 +1,6 @@
 import { css, html } from "../../vendor/js/bundle.js";
+import DescriptionList from "./styled/DescriptionList.js";
+import Reservations from "../screens/Reservations.js";
 
 const style = css`
 & {
@@ -41,7 +43,8 @@ export default function Flight({ flight, detailed = false }) {
       </header>
       <hr/>
       <div>
-        <dl class=${css`display: inline-block;`}>
+        <${DescriptionList}>
+        <!-- <dl class=${css`display: inline-block;`}> -->
           <dt>Departs at</dt>
           <dd>${departureTime.toLocaleString()}</dd>
           <dt>Duration</dt>
@@ -60,7 +63,12 @@ export default function Flight({ flight, detailed = false }) {
           `
       : html``
   }
-        </dl>
+        <//>
+        ${
+    detailed
+      ? html`<!--${Reservations} uncomment when filtering implemented /-->`
+      : html``
+  }
       </div>
     </article>
   `;
