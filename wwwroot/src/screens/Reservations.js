@@ -18,7 +18,7 @@ export default function Reservations() {
       html`
         <div key=${r.id} class=${css
         `border: 1px solid lightgray; border-radius: 0.5em; margin: 0.5em;`}>
-          <a href=${`/reservation/${r.id}`} class=${linkStyle}>
+          <a href="/reservation/${r.id}" class=${linkStyle}>
             <${Reservation} reservation=${r}/>
           </a>
         </div>

@@ -22,7 +22,7 @@ export default function NavLogin() {
     `;
   } else {
     return html`
-      <span class=${style}>${`${u.username}`}<a href="" class=${css
+      <span class=${style}>${u.username}<a href="" class=${css
       `@media(min-width: 500px) { &::before { content: " | "; } }`} onclick=${logOut}>Log out</a></span>
     `;
   }

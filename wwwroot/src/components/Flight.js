@@ -69,6 +69,17 @@ export default function Flight({ flight, detailed = false }) {
       ? html`<!--${Reservations} uncomment when filtering implemented /-->`
       : html``
   }
+          ${
+    detailed
+      ? html`
+            <hr/>
+            <footer>
+              <a href="/make-reservation/${flight.id}"><button class="btn btn-b smooth btn-sm">Make reservation</button></a>
+            </footer>
+          `
+      : html``
+  }
+
       </div>
     </article>
   `;

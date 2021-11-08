@@ -8,4 +8,5 @@ export const router = createRouter({
   reservation: "/reservation/:id",
   login: "/login",
   "404": "/404",
+  makeReservation: "/make-reservation/:id",
 });

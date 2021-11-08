@@ -32,7 +32,7 @@ export default function Reservation({ reservation, detailed }) {
     <article class=${style}>
       <header>
         <b>
-          Reservation <code>#${reservation.id}</code> for flight <a href=${`/flight/${reservation.flightId}`}>
+          Reservation <code>#${reservation.id}</code> for flight <a href="/flight/${reservation.flightId}">
           ${f ? fromToString : reservation.id}
         </a>
         </b>

@@ -18,7 +18,7 @@ export default function Flights() {
       html`
         <div key=${f.id} class=${css
         `border: 1px solid lightgray; border-radius: 0.5em; margin: 0.5em;`}>
-          <a href=${`/flight/${f.id}`} class=${linkStyle}>
+          <a href="/flight/${f.id}" class=${linkStyle}>
             <${Flight} flight=${f}/>
           </a>
         </div>
