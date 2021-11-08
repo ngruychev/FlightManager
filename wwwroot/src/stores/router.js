@@ -7,6 +7,8 @@ export const router = createRouter({
   reservations: "/reservations",
   reservation: "/reservation/:id",
   login: "/login",
+  users: "/users",
+  user: "/user/:id",
   "404": "/404",
   makeReservation: "/make-reservation/:id",
 });

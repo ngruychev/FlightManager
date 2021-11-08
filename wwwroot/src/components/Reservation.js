@@ -3,6 +3,7 @@ import { TicketType } from "../api/reservation.js";
 import DescriptionList from "./styled/DescriptionList.js";
 import BasePerson from "./BasePerson.js";
 import { flights } from "../stores/flights.js";
+import If from "./If.js";
 
 const style = css`
 & {
@@ -14,7 +15,7 @@ function Passenger({ passenger }) {
   return html`
     <article key=${passenger.id}>
       <${DescriptionList}>
-      <${BasePerson} person=${passenger}/>
+        <${BasePerson} person=${passenger}/>
         <dt>Nationality</dt>
         <dd>${passenger.nationality}</dd>
         <dt>Ticket type</dt>
@@ -43,21 +44,20 @@ export default function Reservation({ reservation, detailed }) {
           <dt>Email</dt>
           <dd>${reservation.email}</dd>
         <//>
-      ${
-    detailed
-      ? html`
-        <b>Passengers:</b>
-        <div class=${style}>
-          ${
-        reservation.passengers.map((p) =>
-          html`<div key=${p.id} class=${css
-            `border: 1px solid lightgray; border-radius: 0.5em; margin: 0.5em;`}><${Passenger} passenger=${p}/></div>`
-        )
-      }
-      </div>
-      `
-      : html``
+        <${If} cond=${detailed}>
+          <b>Passengers:</b>
+          <div class=${style}>
+            ${
+    reservation.passengers.map((p) =>
+      html`
+              <div key=${p.id} class=${css
+        `border: 1px solid lightgray; border-radius: 0.5em; margin: 0.5em;`}>
+                <${Passenger} passenger=${p}/>
+              </div>`
+    )
   }
+          </div>
+        <//>
       </div>
     </article>
   `;

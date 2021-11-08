@@ -8,7 +8,7 @@ import {
 import Center from "../components/styled/Center.js";
 import ErrorMessage from "../components/styled/ErrorMessage.js";
 import { router } from "../stores/router.js";
-import { logIn, user } from "../stores/user.js";
+import { logIn, login } from "../stores/login.js";
 
 const formStyle = css`
 display: grid;
@@ -17,7 +17,7 @@ align-content: center;
 `;
 
 export default function Login() {
-  const u = useStore(user);
+  const l = useStore(login);
   const [username, setUsername] = useState("");
   const [pass, setPass] = useState("");
   const [error, setError] = useState("");
@@ -40,7 +40,7 @@ export default function Login() {
       }
     }
   }
-  if (u !== false) redirectPage(router, "home");
+  if (l !== false) redirectPage(router, "home");
   return html`
     <${Center}>
       <${ErrorMessage} message=${error}/>

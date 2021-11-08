@@ -14,6 +14,8 @@ import Flight from "../screens/Flight.js";
 import StatusCode from "../screens/StatusCode.js";
 import Reservation from "../screens/Reservation.js";
 import MakeReservation from "../screens/MakeReservation.js";
+import Users from "../screens/Users.js";
+import User from "../screens/User.js";
 
 const style = css`
 width: 100%;
@@ -49,6 +51,10 @@ export default function Router() {
           return html`<${StatusCode} code="404" text="Not Found"/>`;
         case "makeReservation":
           return html`<${MakeReservation} flightId=${page?.params?.id}/>`;
+        case "users":
+          return html`<${Users}/>`;
+        case "user":
+          return html`<${User} id=${page?.params?.id}/>`;
         default:
           redirectPage(router, "404");
           return;

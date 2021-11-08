@@ -1,19 +1,11 @@
 import { css, html } from "../../vendor/js/bundle.js";
 import DescriptionList from "./styled/DescriptionList.js";
 import Reservations from "../screens/Reservations.js";
+import If from "./If.js";
 
 const style = css`
 & {
   padding: 1em;
-}
-& dl {
-  padding-left: 1em;
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  grid-gap: 0.5em 2em;
-}
-& dt {
-  font-style: italic;
 }
 `;
 
@@ -53,33 +45,22 @@ export default function Flight({ flight, detailed = false }) {
           <dd>${flight.economySeatsTaken}/${flight.economySeatsCapacity} (${flight.economySeatsLeft} left)</dd>
           <dt>Business</dt>
           <dd>${flight.businessSeatsTaken}/${flight.businessSeatsCapacity} (${flight.businessSeatsLeft} left)</dd>
-          ${
-    detailed
-      ? html`
-          <dt>Plane type</dt>
-          <dd>${flight.planeType}</dd>
-          <dt>Pilot name</dt>
-          <dd>${flight.pilotName}</dd>
-          `
-      : html``
-  }
+          <${If} cond=${detailed}>
+            <dt>Plane type</dt>
+            <dd>${flight.planeType}</dd>
+            <dt>Pilot name</dt>
+            <dd>${flight.pilotName}</dd>
+          <//>
         <//>
-        ${
-    detailed
-      ? html`<!--${Reservations} uncomment when filtering implemented /-->`
-      : html``
-  }
-          ${
-    detailed
-      ? html`
-            <hr/>
-            <footer>
-              <a href="/make-reservation/${flight.id}"><button class="btn btn-b smooth btn-sm">Make reservation</button></a>
-            </footer>
-          `
-      : html``
-  }
-
+        <${If} cond=${detailed}>
+          <!--${Reservations} uncomment when filtering implemented /-->
+        <//>
+        <${If} cond=${detailed}>
+          <hr/>
+          <footer>
+            <a href="/make-reservation/${flight.id}"><button class="btn btn-b smooth btn-sm">Make reservation</button></a>
+          </footer>
+        <//>
       </div>
     </article>
   `;

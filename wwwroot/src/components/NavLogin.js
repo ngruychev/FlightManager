@@ -1,5 +1,5 @@
 import { css, html, useStore } from "../../vendor/js/bundle.js";
-import { logOut, user } from "../stores/user.js";
+import { login, logOut } from "../stores/login.js";
 import NavLink from "./NavLink.js";
 
 const style = css`
@@ -15,14 +15,14 @@ const style = css`
 `;
 
 export default function NavLogin() {
-  const u = useStore(user);
-  if (u === false) {
+  const l = useStore(login);
+  if (l === false) {
     return html`
       <${NavLink} class=${style} href="/login">Login<//>
     `;
   } else {
     return html`
-      <span class=${style}>${u.username}<a href="" class=${css
+      <span class=${style}>${l.username}<a href="" class=${css
       `@media(min-width: 500px) { &::before { content: " | "; } }`} onclick=${logOut}>Log out</a></span>
     `;
   }

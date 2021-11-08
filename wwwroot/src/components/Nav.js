@@ -1,6 +1,7 @@
 import NavLogin from "./NavLogin.js";
 import { css, html } from "../../vendor/js/bundle.js";
 import NavLink from "./NavLink.js";
+import IfAdmin from "./IfAdmin.js";
 
 const style = css`
 @media (max-width: 500px) {
@@ -21,6 +22,9 @@ export default function Nav() {
           <a href="" class="pagename current">FlightManager</a>
           <${NavLink} href="/flights">Flights<//>
           <${NavLink} href="/reservations">Reservations<//>
+          <${IfAdmin}>
+            <${NavLink} href="/users">Users<//>
+          <//>
           <hr class=${css`@media (min-width: 500px) { & { display: none; } }`}/>
           <${NavLogin}/>
         </div>
