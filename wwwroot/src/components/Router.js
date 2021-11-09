@@ -16,6 +16,7 @@ import Reservation from "../screens/Reservation.js";
 import MakeReservation from "../screens/MakeReservation.js";
 import Users from "../screens/Users.js";
 import User from "../screens/User.js";
+import CreateUser from "../screens/CreateUser.js";
 
 const style = css`
 width: 100%;
@@ -55,6 +56,8 @@ export default function Router() {
           return html`<${Users}/>`;
         case "user":
           return html`<${User} id=${page?.params?.id}/>`;
+        case "createUser":
+          return html`<${CreateUser}/>`;
         default:
           redirectPage(router, "404");
           return;

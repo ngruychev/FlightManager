@@ -37,7 +37,7 @@ const style = css`
 `;
 
 const passengerFieldsetStyle = css`
-&{
+& {
   display: grid;
 }
 @media (min-width: 500px) {

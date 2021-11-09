@@ -43,3 +43,17 @@ export function changePassword(user, password) {
     });
   });
 }
+
+export function createUser(user) {
+  return new Promise((resolve, reject) => {
+    task(async () => {
+      const [success, u] = await usersApi.createUser(user);
+      if (success) {
+        users.set([...users.get(), u]);
+        resolve(u);
+      } else {
+        reject(u);
+      }
+    });
+  });
+}

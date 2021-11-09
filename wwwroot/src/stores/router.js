@@ -11,4 +11,5 @@ export const router = createRouter({
   user: "/user/:id",
   "404": "/404",
   makeReservation: "/make-reservation/:id",
+  createUser: "/create-user",
 });
