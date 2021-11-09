@@ -1,5 +1,5 @@
 import { html } from "../../vendor/js/bundle.js";
-import { useComponentId } from "../hooks/useComponentId.js";
+import useComponentId from "../hooks/useComponentId.js";
 
 export default function BasePersonInputs({ person, onChange }) {
   const firstNameId = useComponentId();

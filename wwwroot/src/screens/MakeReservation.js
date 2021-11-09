@@ -9,7 +9,7 @@ import {
 import BasePersonInputs from "../components/BasePersonInputs.js";
 import { flights } from "../stores/flights.js";
 import { TicketType } from "../api/reservation.js";
-import { useComponentId } from "../hooks/useComponentId.js";
+import useComponentId from "../hooks/useComponentId.js";
 import ErrorMessage from "../components/styled/ErrorMessage.js";
 import { loadReservations, makeReservation } from "../stores/reservations.js";
 import { router } from "../stores/router.js";
@@ -110,7 +110,6 @@ export default function MakeReservation({ flightId }) {
     }
     try {
       const r = await makeReservation({ flightId, email, passengers });
-      console.log(r);
       await loadReservations();
       redirectPage(router, "reservation", { id: r.id });
     } catch (e) {

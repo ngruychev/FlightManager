@@ -30,3 +30,16 @@ export function deleteUser({ id }) {
     });
   });
 }
+
+export function changePassword(user, password) {
+  return new Promise((resolve, reject) => {
+    task(async () => {
+      const [success] = await usersApi.updateUser(user.id, {
+        ...user,
+        password,
+      });
+      if (success) resolve();
+      else reject();
+    });
+  });
+}
