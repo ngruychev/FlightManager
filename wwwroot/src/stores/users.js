@@ -16,3 +16,17 @@ export function loadUsers() {
     });
   });
 }
+
+export function deleteUser({ id }) {
+  return new Promise((resolve, reject) => {
+    task(async () => {
+      const [success] = await usersApi.deleteUser(id);
+      if (success) {
+        users.set(users.get().filter((u) => u.id !== id));
+        resolve();
+      } else {
+        reject();
+      }
+    });
+  });
+}
