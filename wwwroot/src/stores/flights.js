@@ -16,3 +16,17 @@ export function loadFlights() {
     });
   });
 }
+
+export function createFlight(flight) {
+  return new Promise((resolve, reject) => {
+    task(async () => {
+      const [success, f] = await flightsApi.createFlight(flight);
+      if (success) {
+        flights.set([...flights.get(), f]);
+        resolve(f);
+      } else {
+        reject(f);
+      }
+    });
+  });
+}

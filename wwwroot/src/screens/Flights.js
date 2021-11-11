@@ -7,6 +7,7 @@ export default function Flights() {
   const fs = useStore(flights);
   return html`
     <div class=${css`margin: 0.5em;`}>
+      <a href="/create-flight"><button class="btn btn-sm btn-b smooth">Create flight</button></a>
       ${
     fs.map((f) =>
       html`
