@@ -1,7 +1,10 @@
-import { css, html } from "../../vendor/js/bundle.js";
+import { css, html, redirectPage } from "../../vendor/js/bundle.js";
 import DescriptionList from "./styled/DescriptionList.js";
 import Reservations from "../screens/Reservations.js";
 import If from "./If.js";
+import IfAdmin from "./IfAdmin.js";
+import { router } from "../stores/router.js";
+import { deleteFlight } from "../stores/flights.js";
 
 const style = css`
 & {
@@ -27,6 +30,13 @@ export default function Flight({ flight, detailed = false }) {
       ? [`${durationMinutes} minute${durationMinutes === 1 ? "" : "s"}`]
       : []),
   ].join(", ");
+
+  function delFlight() {
+    if (confirm(`Are you sure you want to delete '${flight.locationFrom} - ${flight.locationTo} (${flight.id})'?`)) {
+      deleteFlight(flight);
+      redirectPage(router, "flights");
+    }
+  }
 
   return html`
     <article class=${style}>
@@ -58,7 +68,11 @@ export default function Flight({ flight, detailed = false }) {
         <${If} cond=${detailed}>
           <hr/>
           <footer>
-            <a href="/make-reservation/${flight.id}"><button class="btn btn-b smooth btn-sm">Make reservation</button></a>
+            <a href="/make-reservation/${flight.id}"><button class="btn btn-b btn-sm smooth">Make reservation</button></a>
+            ${' '}
+            <${IfAdmin}>
+              <button class="btn btn-sm btn-c smooth" onclick=${delFlight}>Delete</button>
+            <//>
           </footer>
         <//>
       </div>

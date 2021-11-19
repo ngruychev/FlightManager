@@ -30,3 +30,17 @@ export function createFlight(flight) {
     });
   });
 }
+
+export function deleteFlight({ id }) {
+  return new Promise((resolve, reject) => {
+    task(async () => {
+      const [success] = await flightsApi.deleteFlight(id);
+      if (success) {
+        flights.set(flights.get().filter((f) => f.id !== id));
+        resolve();
+      } else {
+        reject();
+      }
+    });
+  });
+}
