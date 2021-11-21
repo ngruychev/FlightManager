@@ -1,13 +1,18 @@
-import { css, html, useStore } from "../../vendor/js/bundle.js";
+import { css, html, useState, useStore } from "../../vendor/js/bundle.js";
 import Flight from "../components/Flight.js";
+import Paginator from "../components/Paginator.js";
 import PlainLink from "../components/styled/PlainLink.js";
 import { flights } from "../stores/flights.js";
 
 export default function Flights() {
   const fs = useStore(flights);
+
+  const [page, setPage] = useState(0);
+
   return html`
     <div class=${css`margin: 0.5em;`}>
       <a href="/create-flight"><button class="btn btn-sm btn-b smooth">Create flight</button></a>
+      <${Paginator} page=${page} onPageChange=${setPage} pagesOnTop>
       ${
     fs.map((f) =>
       html`
@@ -20,6 +25,7 @@ export default function Flights() {
       `
     )
   }
+      <//>
     </div>
   `;
 }

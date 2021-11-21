@@ -32,7 +32,11 @@ export default function Flight({ flight, detailed = false }) {
   ].join(", ");
 
   function delFlight() {
-    if (confirm(`Are you sure you want to delete '${flight.locationFrom} - ${flight.locationTo} (${flight.id})'?`)) {
+    if (
+      confirm(
+        `Are you sure you want to delete '${flight.locationFrom} - ${flight.locationTo} (${flight.id})'?`,
+      )
+    ) {
       deleteFlight(flight);
       redirectPage(router, "flights");
     }
@@ -69,7 +73,7 @@ export default function Flight({ flight, detailed = false }) {
           <hr/>
           <footer>
             <a href="/make-reservation/${flight.id}"><button class="btn btn-b btn-sm smooth">Make reservation</button></a>
-            ${' '}
+            ${" "}
             <${IfAdmin}>
               <button class="btn btn-sm btn-c smooth" onclick=${delFlight}>Delete</button>
             <//>
