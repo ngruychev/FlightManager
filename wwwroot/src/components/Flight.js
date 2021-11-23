@@ -50,7 +50,6 @@ export default function Flight({ flight, detailed = false }) {
       <hr/>
       <div>
         <${DescriptionList}>
-        <!-- <dl class=${css`display: inline-block;`}> -->
           <dt>Departs at</dt>
           <dd>${departureTime.toLocaleString()}</dd>
           <dt>Duration</dt>
@@ -67,7 +66,10 @@ export default function Flight({ flight, detailed = false }) {
           <//>
         <//>
         <${If} cond=${detailed}>
-          <!--${Reservations} uncomment when filtering implemented /-->
+          <details>
+            <summary>Reservations:</summary>
+            <${Reservations} forFlightId=${flight.id}/>
+          </details>
         <//>
         <${If} cond=${detailed}>
           <hr/>

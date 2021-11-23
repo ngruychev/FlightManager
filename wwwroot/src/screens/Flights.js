@@ -1,4 +1,5 @@
 import { css, html, useState, useStore } from "../../vendor/js/bundle.js";
+import EmptyMessageFallback from "../components/EmptyMessageFallback.js";
 import Flight from "../components/Flight.js";
 import Paginator from "../components/Paginator.js";
 import PlainLink from "../components/styled/PlainLink.js";
@@ -77,6 +78,7 @@ export default function Flights() {
       <a href="/create-flight"><button class="btn btn-sm btn-b smooth">Create flight</button></a>
       <${Paginator} ...${{ page, itemsPerPage }}
         onPageChange=${setPage} pagesOnTop>
+        <${EmptyMessageFallback}>
       ${
     fs
       .filter((f) =>
@@ -96,6 +98,7 @@ export default function Flights() {
       `
       )
   }
+        <//>
       <//>
     </div>
   `;

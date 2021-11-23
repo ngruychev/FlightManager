@@ -36,6 +36,7 @@ export default function Paginator(
     onPageChange = () => {},
   },
 ) {
+  children = [].concat(children);
   const numPages = Math.ceil(children.length / itemsPerPage);
   const slicedChildren = children.slice(
     itemsPerPage * page,

@@ -1,4 +1,5 @@
 import { css, html, useState, useStore } from "../../vendor/js/bundle.js";
+import EmptyMessageFallback from "../components/EmptyMessageFallback.js";
 import IfAdmin from "../components/IfAdmin.js";
 import Paginator from "../components/Paginator.js";
 import PlainLink from "../components/styled/PlainLink.js";
@@ -89,6 +90,7 @@ export default function Users() {
         <a href="/create-user"><button class="btn btn-sm btn-b smooth">Create user</button></a>
         <${Paginator} ...${{ page, itemsPerPage }}
           onPageChange=${setPage} pagesOnTop>
+          <${EmptyMessageFallback}>
         ${
     us
       .filter((u) => filterEmail === "" ? true : u.email === filterEmail)
@@ -112,6 +114,7 @@ export default function Users() {
         `
       )
   }
+          <//>
         <//>
       </div>
     <//>

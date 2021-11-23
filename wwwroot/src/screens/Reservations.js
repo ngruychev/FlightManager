@@ -5,6 +5,7 @@ import PlainLink from "../components/styled/PlainLink.js";
 import Paginator from "../components/Paginator.js";
 import gridFormLayoutStyle from "../styles/gridFormLayoutStyle.js";
 import useComponentId from "../hooks/useComponentId.js";
+import EmptyMessageFallback from "../components/EmptyMessageFallback.js";
 
 const filtersStyle = css`
 & {
@@ -71,6 +72,7 @@ export default function Reservations({ forFlightId }) {
       </details>
       <${Paginator} ...${{ page, itemsPerPage }}
         onPageChange=${setPage} pagesOnTop>
+        <${EmptyMessageFallback}>
       ${
     rs
       .filter((r) => r.flightId === (forFlightId ?? r.flightId))
@@ -86,6 +88,7 @@ export default function Reservations({ forFlightId }) {
       `
       )
   }
+        <//>
       <//>
     </div>
   `;
