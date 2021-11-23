@@ -1,26 +1,11 @@
-import { css, html, redirectPage, useState } from "../../vendor/js/bundle.js";
+import { html, redirectPage, useState } from "../../vendor/js/bundle.js";
 import IfAdmin from "../components/IfAdmin.js";
 import Center from "../components/styled/Center.js";
 import ErrorMessage from "../components/styled/ErrorMessage.js";
 import useComponentId from "../hooks/useComponentId.js";
 import { createFlight } from "../stores/flights.js";
 import { router } from "../stores/router.js";
-
-const fieldsetStyle = css`
-& > div.inputs {
-  display: grid;
-}
-@media (min-width: 500px) {
-  & > div.inputs {
-    grid-template-columns: repeat(2, auto);
-  }
-}
-& > span.submitspan {
-  display: grid;
-  justify-content: center;
-  align-content: center;
-}
-`;
+import gridFormLayoutStyle from "../styles/gridFormLayoutStyle.js";
 
 function datetimeLocalValueHelper(value) {
   return new Date(
@@ -67,7 +52,7 @@ export default function CreateFlight() {
     <${IfAdmin} orRedirectToLogin>
       <${Center}>
         <form onsubmit=${onSubmit}>
-          <fieldset class=${fieldsetStyle}>
+          <fieldset class=${gridFormLayoutStyle}>
             <legend>
               Create flight
             </legend>
@@ -109,7 +94,7 @@ export default function CreateFlight() {
                 onchange=${(e) =>
     setFlight({ ...flight, businessSeatsCapacity: +e.target.value })}/>
             </div>
-            <span class="submitspan">
+            <span class="buttons">
               <input type="submit" class="btn btn-sm btn-b smooth" value="Create"/>
             </span>
             <${ErrorMessage} message=${error} displayNone/>

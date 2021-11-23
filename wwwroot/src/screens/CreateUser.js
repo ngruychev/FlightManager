@@ -1,4 +1,4 @@
-import { css, html, redirectPage, useState } from "../../vendor/js/bundle.js";
+import { html, redirectPage, useState } from "../../vendor/js/bundle.js";
 import { UserRole } from "../api/user.js";
 import BasePersonInputs from "../components/BasePersonInputs.js";
 import IfAdmin from "../components/IfAdmin.js";
@@ -7,22 +7,7 @@ import ErrorMessage from "../components/styled/ErrorMessage.js";
 import useComponentId from "../hooks/useComponentId.js";
 import { router } from "../stores/router.js";
 import { createUser } from "../stores/users.js";
-
-const fieldsetStyle = css`
-& > div.inputs {
-  display: grid;
-}
-@media (min-width: 500px) {
-  & > div.inputs {
-    grid-template-columns: repeat(2, auto);
-  }
-}
-& > span.submitspan {
-  display: grid;
-  justify-content: center;
-  align-content: center;
-}
-`;
+import gridFormLayoutStyle from "../styles/gridFormLayoutStyle.js";
 
 export default function CreateUser() {
   const [user, setUser] = useState({
@@ -62,7 +47,7 @@ export default function CreateUser() {
     <${IfAdmin} orRedirectToLogin>
       <${Center}>
         <form onsubmit=${onSubmit}>
-          <fieldset class=${fieldsetStyle}>
+          <fieldset class=${gridFormLayoutStyle}>
             <legend>
               Create user
             </legend>
@@ -97,7 +82,7 @@ export default function CreateUser() {
     setUser({ ...user, role: +e.target.value })}/> Admin
               </label>
             </div>
-            <span class="submitspan">
+            <span class="buttons">
               <input type="submit" class="btn btn-sm btn-b smooth" value="Create"/>
             </span>
             <${ErrorMessage} message=${error} displayNone/>
