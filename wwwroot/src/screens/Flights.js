@@ -3,6 +3,7 @@ import EmptyMessageFallback from "../components/EmptyMessageFallback.js";
 import Flight from "../components/Flight.js";
 import Paginator from "../components/Paginator.js";
 import PlainLink from "../components/styled/PlainLink.js";
+import IfAdmin from "../components/IfAdmin.js";
 import useComponentId from "../hooks/useComponentId.js";
 import { flights } from "../stores/flights.js";
 import gridFormLayoutStyle from "../styles/gridFormLayoutStyle.js";
@@ -75,7 +76,9 @@ export default function Flights() {
           </div>
         </form>
       </details>
-      <a href="/create-flight"><button class="btn btn-sm btn-b smooth">Create flight</button></a>
+      <${IfAdmin}>
+        <a href="/create-flight"><button class="btn btn-sm btn-b smooth">Create flight</button></a>
+      <//>
       <${Paginator} ...${{ page, itemsPerPage }}
         onPageChange=${setPage} pagesOnTop>
         <${EmptyMessageFallback}>

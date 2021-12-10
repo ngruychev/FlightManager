@@ -6,7 +6,9 @@ color: #555;
 padding: 5em;
 `;
 
-export default function EmptyMessageFallback({ children, message = "Nothing here" }) {
+export default function EmptyMessageFallback(
+  { children, message = "Nothing here" },
+) {
   children = [].concat(children);
   if (children.length === 0) {
     return html`
