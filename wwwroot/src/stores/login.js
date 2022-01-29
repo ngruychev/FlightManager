@@ -1,5 +1,6 @@
 import { atom, onMount, task } from "../../vendor/js/bundle.js";
 import * as loginApi from "../api/login.js";
+import { loadUsers } from "./users.js";
 
 export const login = atom(false);
 
@@ -11,8 +12,12 @@ export function loadLogin() {
   return new Promise((resolve, reject) => {
     task(async () => {
       const [success, info] = await loginApi.getLoginInfo();
-      if (success) resolve(login.set(info));
-      else reject(info);
+      if (success) {
+        await loadUsers();
+        resolve(login.set(info));
+      } else {
+        reject(info);
+      }
     });
   });
 }
@@ -21,8 +26,12 @@ export function logIn(username, password) {
   return new Promise((resolve, reject) => {
     task(async () => {
       const [success, u] = await loginApi.logIn(username, password);
-      if (success) resolve(login.set(u));
-      else reject(u);
+      if (success) {
+        await loadUsers();
+        resolve(login.set(u));
+      } else {
+        reject(u);
+      }
     });
   });
 }
